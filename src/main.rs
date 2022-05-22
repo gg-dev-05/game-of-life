@@ -15,7 +15,7 @@ fn sleep(time: u64) {
 
 fn draw(x: u8) {
     if x == 1 {
-        print!("\x1b[92m{} \x1b[0m", "X");
+        print!("\x1b[92m{} \x1b[0m", "o");
     } else {
         print!("\x1b[93m{} \x1b[0m", "O");
     }
@@ -52,6 +52,7 @@ fn simulate(front_screen: &mut [[u8; WIDTH]; HEIGHT]) {
     // let y_direction: [i8; 4] = [0, -1, 0, 1];
     // let x_direction: [i8; 4] = [-1, 0, 1, 0];
     // let temp: [[u8; WIDTH]; HEIGHT];
+    let mut temp = [[0u8; WIDTH]; HEIGHT];
     for y in 0..HEIGHT {
         for x in 0..WIDTH {
             let mut alive = 0;
@@ -79,17 +80,17 @@ fn simulate(front_screen: &mut [[u8; WIDTH]; HEIGHT]) {
             //     }
             // }
             if alive < 2 {
-                front_screen[y][x] = 0; // Any live cell with fewer than two live neighbours dies,
+                temp[y][x] = 0; // Any live cell with fewer than two live neighbours dies,
             }
             if alive == 2 || alive == 3 {
-                front_screen[y][x] = 1; // Any live cell with two or three live neighbours lives on to the next generation.
+                temp[y][x] = 1; // Any live cell with two or three live neighbours lives on to the next generation.
             }
             if alive > 3 {
-                front_screen[y][x] = 0; // Any live cell with more than three live neighbours dies
+                temp[y][x] = 0; // Any live cell with more than three live neighbours dies
             }
         }
     }
-    // front_screen = temp;
+    front_screen = temp;
 }
 
 fn main() {
