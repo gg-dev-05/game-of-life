@@ -136,7 +136,7 @@ fn main() {
     // front_screen[6][4] = 1;
     // front_screen[5][6] = 1;
     disp(front_screen, format!("Generation: 0"));
-    while 1 == 1 {
+    loop {
         simulate(&mut front_screen);
         disp(front_screen, format!("Genration: {generation}"));
         generation += 1;
